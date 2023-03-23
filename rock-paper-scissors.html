@@ -6,64 +6,51 @@
     </head>
     <body>
         <script>
-            
-            const choice = ["rock", "paper", "scissors"];
 
+            let playerPoints = 0;
+            let computerPoints = 0;
+            
+            let choice = ["rock", "paper", "scissors"];
             function getComputerChoice() {
                 let computerChoice = choice[Math.floor(Math.random() * choice.length)];
                 return computerChoice;
             }
 
-            let playerPoints = 0,
-            computerPoints = 0,
-            winPlayer = 'You win the round',
-            draw = 'Same sign, try again',
-            winComputer = 'Computer win the round';
-            const playerSelection = prompt('Choose your fighter', '').toLowerCase();
-            const computerSelection = getComputerChoice();
-
-            function playRound(playerSelection, computerSelection) {
-                
-                if (
-                (playerSelection === 'paper' && computerSelection === 'rock') 
-                    ||
-                (playerSelection === 'rock' && computerSelection === 'scissors') 
-                    ||
-                (playerSelection === 'scissors' && computerSelection === 'paper')) {
-                   return winPlayer;
-
-                } else if (playerSelection === computerSelection) {
-                    return draw;
-                    
-                } else {
-                    return winComputer;
-                }
-                
-            }
-
-            console.log(playRound(playerSelection, computerSelection));
-            
-            /* everything below is a first draft and still need to be worked out*/
-            for (let i = 0; i < 5; i++) {
-                if (winPlayer) {
-                    playerPoints++;
-                } else if (winComputer) {
-                    computerPoints++;
-                } else {
-                }
-            }
-
             function game() {
-                playRound(playerSelection, computerSelection) 
-                    if (playerPoints === 5) {
-                        'You won! Congrats';
-                    } else if (computerPoints === 5) {
-                        'Computer won! Machines really are going to overthrow us';
-                    } else {
-                    }
+                console.log(playRound());
+                if (playerPoints < 5 && computerPoints < 5) {
+                    return game()
+                } else if (playerPoints === 5){
+                    return "You're the winner! Congrats"
+                } else if (computerPoints === 5) {
+                    return "Computer is the winner! Machines really are going to overthrow us"
+                } else {
+                    return ""
                 }
+            }
+            
+            function playRound() {
+                let playerSelection = prompt('Choose your fighter', '').toLowerCase();
+                let computerSelection = getComputerChoice();
+                if (
+                (playerSelection === "paper" && computerSelection === "rock") 
+                ||
+                (playerSelection === "rock" && computerSelection === "scissors")
+                ||
+                (playerSelection === "scissors" && computerSelection === "paper")
+                ) {
+                    playerPoints++;
+                    return "You win! " + `${playerPoints} - ${computerPoints}`;
+                } else if (playerSelection === computerSelection) {
+                    return "draw";
+                } else {
+                    computerPoints++;
+                    return "Computer win! " + `${playerPoints} - ${computerPoints}`;
+                }
+            }
             
             console.log(game());
+            
         </script>
     </body>
 </html>
